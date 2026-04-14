@@ -157,6 +157,7 @@ class ProposalTargetLayerMPPNet(ProposalTargetLayer):
             batch_roi_scores[index] = cur_roi_scores[sampled_inds]
 
             if 'valid_length' in batch_dict.keys():
+                cur_valid_length = cur_valid_length.to(sampled_inds.device)
                 batch_valid_length[index] = cur_valid_length[:,sampled_inds]
 
             if self.roi_sampler_cfg.USE_TRAJ_AUG.ENABLED:

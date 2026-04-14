@@ -1,0 +1,43 @@
+---------------------------------------
+Begin Slurm Prolog: Mar-24-2026 09:39:24
+Job ID:    5458665
+User ID:   spanse30
+Account:   gts-gchou3-ideas_l40s
+Job name:  msf_waymo
+Partition: gpu-l40s
+QOS:       inferno
+---------------------------------------
+The Zen of Python, by Tim Peters
+
+Beautiful is better than ugly.
+Explicit is better than implicit.
+Simple is better than complex.
+Complex is better than complicated.
+Flat is better than nested.
+Sparse is better than dense.
+Readability counts.
+Special cases aren't special enough to break the rules.
+Although practicality beats purity.
+Errors should never pass silently.
+Unless explicitly silenced.
+In the face of ambiguity, refuse the temptation to guess.
+There should be one-- and preferably only one --obvious way to do it.
+Although that way may not be obvious at first unless you're Dutch.
+Now is better than never.
+Although never is often better than *right* now.
+If the implementation is hard to explain, it's a bad idea.
+If the implementation is easy to explain, it may be a good idea.
+Namespaces are one honking great idea -- let's do more of those!
+['DATA_CONFIG.ROI_BOXES_PATH.train', '/storage/project/r-gchou3-0/spanse30/OpenPCDet/output/cfgs/custom_models/centerpoint_multiframe_waymo/default/eval/epoch_36/train/default/result_fixed.pkl', 'DATA_CONFIG.ROI_BOXES_PATH.test', '/storage/project/r-gchou3-0/spanse30/OpenPCDet/output/cfgs/custom_models/centerpoint_multiframe_waymo/default/eval/epoch_36/val/default/result_fixed.pkl']
+---------------------------------------
+Begin Slurm Epilog: Mar-24-2026 09:39:53
+Job ID:        5458665
+User ID:       spanse30
+Account:       gts-gchou3-ideas_l40s
+Job name:      msf_waymo
+Resources:     cpu=8,gres/gpu:l40s=2,mem=160G,node=1
+Rsrc Used:     cput=00:03:52,vmem=0,walltime=00:00:29,mem=72140K,energy_used=0
+Partition:     gpu-l40s
+QOS:           inferno
+Nodes:         atl1-1-01-010-35-0
+---------------------------------------
