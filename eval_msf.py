@@ -12,6 +12,7 @@ from tqdm import tqdm
 from pcdet.utils import common_utils
 import numpy as np
 
+
 import importlib
 import helpers_ptt
 importlib.reload(helpers_ptt)
@@ -60,6 +61,7 @@ def parse_args():
     parser.add_argument('--workers', type=int, default=4)
     parser.add_argument('--log_file', default="waymo_eval.log")
     parser.add_argument('--metrics_out', default="metrics.json")
+
     return parser.parse_args()
 
 
@@ -155,6 +157,7 @@ def run_evaluations(args, logger):
     segment_preds_list = []
     current_segment = None
     used_batch = None
+
 
     try: 
         for (i_msf,batch)  in enumerate(test_loader):
@@ -267,7 +270,6 @@ def run_evaluations(args, logger):
 
             segment_preds_list+=annos
             
-            
     except Exception:
         logger.error("===== EXCEPTION =====")
         logger.error(traceback.format_exc())
@@ -279,7 +281,6 @@ def run_evaluations(args, logger):
             with open(pred_path, "wb") as f:
                 pkl.dump(segment_preds_list, f)
             logger.info("Saved preds for : %s", current_segment)
-
             
     
     

@@ -53,6 +53,16 @@ def get_pred_boxes_labels_scores(frame_pred):
     pred_scores = frame_pred.get('score', frame_pred.get('pred_scores', np.array([])))
     return pred_boxes, np.array(pred_labels), np.array(pred_scores)
 
+def safe_pkl_load(path):
+    try:
+        with open(path, "rb") as f:
+            return pkl.load(f)
+    except RuntimeError as e:
+        if "CUDA" in str(e):
+            with open(path, "rb") as f:
+                return torch.load(f, map_location='cpu')
+        raise
+
 
 def build_window_frame_ids_from_spoof_annos(segment_annos, segment_preds, ordered_segments, history_len):
     """
@@ -156,8 +166,7 @@ def run_evaluations(args, logger):
     frame_id_to_spoof_gt = {}
     for seg in tqdm(ordered_segments, desc="Loading spoof_gt"):
         seg_dataset_file = f"{args.dataset}/{seg}_d.pkl"
-        with open(seg_dataset_file, "rb") as f:
-            seg_data = pkl.load(f)
+        seg_data = safe_pkl_load(seg_dataset_file)
         for frame in seg_data:
             gt = frame.get('spoof_gt', None)
             if gt is not None:
@@ -228,15 +237,6 @@ def run_evaluations(args, logger):
                 pred_boxes, pred_labels, scores = get_pred_boxes_labels_scores(frame_pred)
                 #no predictions at all -> failure to detect
                 if pred_boxes is None or len(pred_boxes) == 0:
-                    asr_records.append({
-                        'segment': seg,
-                        'local_idx': loc_idx,
-                        'frame_id': fid,
-                        'iou': 0.0,
-                        'score': 0.0,
-                        'active_this_frame': True,
-                        'n_points_removed': int(meta.get('n_points_removed', 0)),
-                    })
                     continue
 
                 # pred_labels = frame_pred.get('pred_labels', np.array([]))
@@ -248,15 +248,6 @@ def run_evaluations(args, logger):
                 # no objects detected in target class -> failure to detect
                 target_mask = (np.array(pred_labels) == target_class)
                 if not np.any(target_mask):
-                    asr_records.append({
-                        'segment': seg,
-                        'local_idx': loc_idx,
-                        'frame_id': fid,
-                        'iou': 0.0,
-                        'score': 0.0,
-                        'active_this_frame': True,
-                        'n_points_removed': int(meta.get('n_points_removed', 0)),
-                    })
                     continue
 
                 target_boxes  = pred_boxes[target_mask]

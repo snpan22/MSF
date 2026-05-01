@@ -52,6 +52,15 @@ def get_pred_boxes_labels_scores(frame_pred):
     pred_labels = frame_pred.get('pred_labels', np.array([]))
     pred_scores = frame_pred.get('score', frame_pred.get('pred_scores', np.array([])))
     return pred_boxes, np.array(pred_labels), np.array(pred_scores)
+def safe_pkl_load(path):
+    try:
+        with open(path, "rb") as f:
+            return pkl.load(f)
+    except RuntimeError as e:
+        if "CUDA" in str(e):
+            with open(path, "rb") as f:
+                return torch.load(f, map_location='cpu')
+        raise
 
 
 def build_window_frame_ids_from_spoof_annos(segment_annos, segment_preds, ordered_segments, history_len):
@@ -168,8 +177,8 @@ def run_evaluations(args, logger):
             if seg_data is not None:
                 del seg_data
             seg_data = None
-            with open(f"{args.dataset}/{seg}_d.pkl", "rb") as f:
-                seg_data = pkl.load(f)
+            seg_dataset_file = f"{args.dataset}/{seg}_d.pkl"
+            seg_data = safe_pkl_load(seg_dataset_file)
             current_segment = seg
         frame = seg_data[idx]
         
