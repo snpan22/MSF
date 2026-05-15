@@ -1,0 +1,19 @@
+2026-05-02 00:31:13,391 | INFO | Loading config...
+2026-05-02 00:31:13,419 | INFO | Building dataset (GT only, no model)...
+2026-05-02 00:31:13,439 | INFO | Loaded cfg from tools/cfgs/waymo_models/msf_4frames.yaml
+2026-05-02 00:31:13,442 | INFO | Loading Waymo dataset
+2026-05-02 00:31:16,586 | INFO | Total skipped info 0
+2026-05-02 00:31:16,586 | INFO | Total samples for Waymo dataset: 38597
+2026-05-02 00:31:16,587 | INFO | Loading and reorganizing pred_boxes to dict from path: /storage/project/r-gchou3-0/spanse30/OpenPCDet/output/cfgs/custom_models/centerpoint_multiframe_waymo/default/eval/epoch_36/val/default/result_fixed.pkl
+2026-05-02 00:31:20,770 | INFO | Predicted boxes has been loaded, total sequences: 202
+2026-05-02 00:31:20,814 | INFO | Test set length: 38597
+2026-05-02 00:31:21,096 | INFO | Loading checkpoint from: output/cfgs/waymo_models/msf_4frames/default/ckpt/checkpoint_epoch_6.pth
+2026-05-02 00:31:21,103 | INFO | ==> Loading parameters from checkpoint output/cfgs/waymo_models/msf_4frames/default/ckpt/checkpoint_epoch_6.pth to GPU
+2026-05-02 00:31:21,360 | INFO | ==> Checkpoint trained from version: pcdet+0.6.0+60735d2
+2026-05-02 00:31:21,366 | INFO | ==> Done (loaded 200/200)
+2026-05-02 00:31:21,412 | INFO | Loaded LOP defense from PointNetLOP
+2026-05-02 00:31:31,088 | INFO | Original dataset frames: 38597
+2026-05-02 00:31:31,088 | INFO | Filtered frames with predictions: 38432
+2026-05-02 00:31:31,128 | INFO | 
+
+Starting Waymo evaluation
